@@ -1,0 +1,57 @@
+class Solution
+{
+    public:
+    struct Node* reverseD(struct Node *cur,int c)
+    {
+        
+        struct Node *cur1=cur,*prev=NULL,*next=NULL;
+        while(cur1)
+        {
+            if(cur1->data==0&&c==0)
+          {  cur1=cur1->next;c=1;}
+            else
+            {
+                  next=cur1->next;
+            cur1->next=prev;
+            prev=cur1;
+            cur1=next; 
+            }
+         
+        }
+        return prev;
+        
+    }
+   
+    
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+        // code here
+        first=reverseD(first,1);
+        second=reverseD(second,1);
+           struct Node *dummy=new Node(0);
+              struct Node*temp=dummy;
+              int carry=0;
+              while(first||second||carry)
+              {
+                  int sum=0;
+                  if(first)
+                  {
+                      sum+=first->data;
+                      first=first->next;
+                  }
+                  if(second)
+                  {
+                      sum+=second->data;
+                      second=second->next;
+                  }
+                  sum+=carry;
+                  carry=sum/10;
+                     struct Node *node=new Node(sum%10);
+                     temp->next=node;
+                     temp=temp->next;
+              }
+              dummy=reverseD(dummy,0);
+              return dummy;
+        
+    }
+};
